@@ -6,6 +6,7 @@ import Spinner from "./Spinner";
 class App extends React.Component {
   state = { lat: null, errorMessage: "" };
 
+  //Will run when the file is loaded
   componentDidMount() {
     window.navigator.geolocation.getCurrentPosition(
       position => this.setState({ lat: position.coords.latitude }),
@@ -13,8 +14,8 @@ class App extends React.Component {
     );
   }
 
-  //We have to define render
-  render() {
+  //Helper Method
+  renderContent() {
     if (this.state.errorMessage && !this.state.lat) {
       return <div>Error: {this.state.errorMessage}</div>;
     }
@@ -24,6 +25,11 @@ class App extends React.Component {
     }
 
     return <Spinner message="Please accept location request..." />;
+  }
+
+  //We have to define render
+  render() {
+    return <div className="border red">{this.renderContent()}</div>;
   }
 }
 
